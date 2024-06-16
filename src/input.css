@@ -1,0 +1,8 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.bg_image{
+    background-image: (url("Images/b-wa;;paper.jpg"));
+  
+}
