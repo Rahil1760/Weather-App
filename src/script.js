@@ -1,12 +1,16 @@
 let input = document.querySelector(".input");
 let searchButton = document.querySelector(".searchButton");
 let useLocationButton = document.querySelector(".useLocationButton");
+let humadity_element = document.querySelector('.humadity_element');
+let windspeed_element = document.querySelector('.windspeed_element');
+
 
 let weatherIcon = document.querySelector(".weatherIcon");
 let temperature = document.querySelector(".temperature");
 let cityName = document.querySelector(".cityName");
 let weatherTitle = document.querySelector(".weatherTitle");
 let day1 = document.querySelector('.day1')
+
 
 useLocationButton.addEventListener("click", () =>
   alert("Use loaction Working")
@@ -25,12 +29,16 @@ async function fetchWeather(city) {
     const currentCity = responce.city.name;
     let temp = responce.list[0].main.temp;
     let temperature1 = Math.round(temp);
-    let foreFirstcast = responce.list[8].weather[0].main
+    let humadity = responce.list[0].main.humidity;
+    let windSpeed = responce.list[0].wind.speed;
+
+    console.log(humadity);
+    // let foreFirstcast = responce.list[8].weather[0].main
     let main = responce.list[0].weather[0].description;
     console.log(responce.list);
-    imageChange(main);
-      updateDetails(temperature1, currentCity, main);
-      updateforeCast(foreFirstcast)
+    imageChange(main,temperature1, currentCity,humadity,windSpeed);
+   
+
       
     console.log(main);
   } catch (error) {
@@ -43,27 +51,28 @@ async function fetchWeather(city) {
 searchButton.addEventListener("click", () => {
   fetchWeather(input.value);
 });
-
+// error handling
 function errorHandle(error) {
   if (error) {
     alert("Enter a valid city name");
   }
 }
 
-function updateDetails(temperature1, currentCity, main) {
-  temperature.innerHTML = `${temperature1}°C`;
+
+// main forecast function 
+function imageChange(main,temperature1, currentCity,humadity,windSpeed) {
+    temperature.innerHTML = `${temperature1}°C`;
   cityName.innerHTML = currentCity;
   weatherTitle.innerHTML = main;
-}
+  humadity_element.innerHTML = humadity;
+  windspeed_element.innerHTML = windSpeed;
 
-function imageChange(main) {
   if (
     main == "broken clouds" ||
     main == "Clouds" ||
     main == "overcast clouds"
   ) {
     weatherIcon.src = "Images/brokenClouds.png";
-    day1.src = "Images/brokenClouds.png"
   } else if (main == "light rain" || main == "rain" || main == "shower rain") {
     weatherIcon.src = "Images/Rain.png";
 
@@ -82,9 +91,7 @@ function imageChange(main) {
     }
 }
 
-function updateforeCast(foreFirstcast) {
-  imageChange(foreFirstcast)
-}
+//1day foreCast
 
 
 // const date = new Date("2024-06-15")
