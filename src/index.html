@@ -15,6 +15,7 @@
   </head>
 
   <body>
+    <!-- loadin -->
     <section class="loader hidden">
       <div
         class="z-20 absolute w-full md:h-full h-1/2 flex justify-center md:items-center"
@@ -44,6 +45,7 @@
         </div>
       </div>
     </section>
+    <!-- main section -->
     <section class="pageOpacity relative z-0">
       <section>
         <div class="w-full flex">
@@ -55,6 +57,7 @@
                   placeholder="Search here"
                   class="input bg-gray-900 w-full p-1 mt-2 rounded-full text-white md:text-xl pl-4 border-none outline-none h-1/6"
                 />
+
                 <i
                   class="searchButton fa-solid fa-magnifying-glass text-white md:text-3xl absolute top-4 md:top-3 right-3 cursor-pointer"
                 ></i>
@@ -69,6 +72,11 @@
                   Use Location
                 </button>
               </div>
+            </div>
+            <div class="option w-1/2 text-white bg-gray-900 rounded-xl hidden">
+              <ul class="ul">
+                <li class="ml-5 hover:bg-gray-800"></li>
+              </ul>
             </div>
 
             <div class="w-1/2 m-auto mt-5">
@@ -97,7 +105,7 @@
 
                 <div>
                   <h6 class="humadity_element text-white text-xs md:text-2xl">
-                    59.00
+                    --
                   </h6>
                 </div>
               </div>
@@ -106,7 +114,7 @@
                   <h6
                     class="text-center windspeed_element text-white text-xs md:text-2xl"
                   >
-                    2 kmpl
+                    --
                   </h6>
                 </div>
                 <div>
@@ -122,7 +130,7 @@
         </div>
       </section>
       <!-- 5 days forecast section -->
-      <section class="bg-black rounded-xl mt-2 p-5">
+      <section class="fiveDaysWeather bg-black rounded-xl mt-2 p-5">
         <div class="space-y-2">
           <!-- day1 -->
           <div
@@ -134,7 +142,7 @@
                 alt="cloud-image"
                 class="weather-icon_d1 w-1/4"
               />
-              <p class="Weekday1 text-xs ml-1 md:ml-6 md:text-xl">XX</p>
+              <p class="Weekday1 text-xs ml-1 md:ml-6 md:text-xl">--</p>
             </div>
             <div>
               <h6
@@ -168,7 +176,7 @@
                 alt="cloud-image"
                 class="weather-icon_d2 w-1/4"
               />
-              <p class="Weekday2 text-xs ml-1 md:ml-6 md:text-xl">pp</p>
+              <p class="Weekday2 text-xs ml-1 md:ml-6 md:text-xl">--</p>
             </div>
             <div>
               <h6
@@ -202,7 +210,7 @@
                 alt="cloud-image"
                 class="weather-icon_d3 w-1/4"
               />
-              <p class="Weekday3 text-xs ml-1 md:ml-6 md:text-xl">Sun</p>
+              <p class="Weekday3 text-xs ml-1 md:ml-6 md:text-xl">--</p>
             </div>
             <div>
               <h6
@@ -236,7 +244,7 @@
                 alt="cloud-image"
                 class="weather-icon_d4 w-1/4"
               />
-              <p class="Weekday4 text-xs ml-1 md:ml-6 md:text-xl">Sun</p>
+              <p class="Weekday4 text-xs ml-1 md:ml-6 md:text-xl">--</p>
             </div>
             <div>
               <h6
@@ -270,7 +278,7 @@
                 alt="cloud-image"
                 class="weather-icon_d5 w-1/4"
               />
-              <p class="Weekday5 text-xs ml-1 md:ml-6 md:text-xl">Sun</p>
+              <p class="Weekday5 text-xs ml-1 md:ml-6 md:text-xl">--</p>
             </div>
             <div>
               <h6
@@ -297,6 +305,6 @@
         </div>
       </section>
     </section>
-    <script src="./script.js"></script>
+    <script src="../src/script.js"></script>
   </body>
 </html>

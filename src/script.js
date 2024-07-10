@@ -10,7 +10,13 @@ let temperature = document.querySelector(".temperature");
 let cityName = document.querySelector(".cityName");
 let weatherTitle = document.querySelector(".weatherTitle");
 let day1 = document.querySelector(".day1");
-
+let options = document.querySelector('.option')
+let ul = document.querySelector('.ul');
+let fiveDaysWeatherSection = document.querySelector('.fiveDaysWeather');
+console.log(fiveDaysWeatherSection);
+fiveDaysWeatherSection.style.display = 'none'
+let cityarr = [];
+// options.style.display = 'hidden'
 //Weekdays
 let weekday1 = document.querySelector(".Weekday1");
 let weekday2 = document.querySelector(".Weekday2");
@@ -60,7 +66,7 @@ useLocationButton.addEventListener("click", async () => {
         const url = "http://api.openweathermap.org/geo/1.0/reverse?"
       const longitude = position.coords.longitude;
         const latitude = position.coords.latitude;
-        console.log("lat:",latitude,"long:",longitude)
+       
       const id = "3f6bd1576dd54b6547112220831f28c4"
       // 
         const cityName = await fetch(url + `&lat=${latitude}` + `&lon=${longitude}`+ `&limit=5&appid=`+ id);
@@ -76,9 +82,11 @@ useLocationButton.addEventListener("click", async () => {
           
         },1000);
         fetchWeather(locationCiy);
+        sessionStorageFunc(locationCiy)
+
       } catch(error) {
         if (error) {
-          console.log("Internal error");
+        
         }
       }
       
@@ -86,12 +94,12 @@ useLocationButton.addEventListener("click", async () => {
     getCityName();
   }
   function failedToGet() {
-    console.log("Failed to get")
+    alert("Failed to get your location")
   }
 
 }
   
-  //{lat}&lon={lon}&limit={limit}&appid={API key}
+  
 );
 
 
@@ -105,7 +113,7 @@ async function fetchWeather(city) {
       appUrl + city + `&appid=${appKey}` + "&units=metric"
     );
     const responce = await fetchedData.json();
-    console.log(responce.list);
+ 
     // currentDay foreCast
     const currentCity = responce.city.name;
     let temp = responce.list[0].main.temp;
@@ -113,9 +121,8 @@ async function fetchWeather(city) {
     let humadity = responce.list[0].main.humidity;
     let windRound = responce.list[0].wind.speed;
     let windSpeed = Math.round(windRound);
-    // let foreFirstcast = responce.list[8].weather[0].main
     let main = responce.list[0].weather[0].description;
-    console.log(responce.list);
+   
 
     currentDayWeather(
       main,
@@ -225,7 +232,7 @@ async function fetchWeather(city) {
       fifthDayTitle_ELement
     );
     imageChange(fifthWeatherTitle, weatherIconD5);
-    console.log(main);
+   
   } catch (error) {
     if (error) {
       errorHandle(error);
@@ -235,6 +242,8 @@ async function fetchWeather(city) {
 //function call
 searchButton.addEventListener("click", () => {
   fetchWeather(input.value);
+  sessionStorageFunc(input.value);
+  input.value = "";
 });
 // error handling
 function errorHandle(error) {
@@ -261,8 +270,9 @@ function currentDayWeather(
   cityName.innerHTML = currentCity;
   humadity_element.innerHTML = `${humadity}%`;
   windspeed_element.innerHTML = `${windSpeed}kmpl`;
+  fiveDaysWeatherSection.style.display = "block";
 }
-// 5 day updates and 5day DOM updation
+// 5 day weather updates
 function daysForecast(
   nextDay1,
   weekday1,
@@ -314,4 +324,71 @@ function imageChange(weatherTitle, weatherIcon) {
   }
 }
 
+
+// input searched cities 
+function option() {
+  function optionShow() {
+    options.style.display = "block"
+  }
+  function optionHIde() {
+    options.style.display = "none"
+  }
+
+  input.addEventListener('mouseover', () => {
+  
+    optionShow();
+  });
+  input.addEventListener('mouseout', () => {
+  
+    optionHIde();
+  });
+
+  options.addEventListener('mouseover', () => {
+    optionShow();
+  });
+  options.addEventListener('mouseout', () => {
+    optionHIde();
+  })
+  input.addEventListener('click', () => {
+    optionShow();
+  });
+}
+
+
+option();
+// adding data to session storage
+function sessionStorageFunc(searchedCity) {
+  sessionStorage.setItem("SearchedCity", searchedCity);
+  
+ 
+  getSessionData();
+}
+
+//getting data from session storage
+function getSessionData() {
+  let city = sessionStorage.getItem("SearchedCity");
+  cityarr.push(city);
+  let gotCities = [... new Set(cityarr)];
+  
+  searchCityMapping(gotCities)
+}
+function searchCityMapping(filteredcity) {
+  ul.innerHTML = "";
+   let style = ["ml-5", "hover:bg-gray-800","cursor-pointer"];
+   filteredcity.map(city => {
+    let option = document.createElement('li');
+    option.innerHTML = city;
+    ul.appendChild(option);
+    option.classList.add(...style);
+
+    option.addEventListener("click", (e) => {
+      input.value = e.target.innerHTML;
+      options.style.display = "none";
+    })
+
+    option.addEventListener('mouseover', (e) => {
+      input.value = e.target.innerHTML;
+    });
+   });
+}
 
