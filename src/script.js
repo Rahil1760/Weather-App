@@ -12,9 +12,15 @@ let weatherTitle = document.querySelector(".weatherTitle");
 let day1 = document.querySelector(".day1");
 let options = document.querySelector('.option')
 let ul = document.querySelector('.ul');
+let humidityIcon = document.querySelector('.humidityIcon');
 let fiveDaysWeatherSection = document.querySelector('.fiveDaysWeather');
-console.log(fiveDaysWeatherSection);
+let windSpeedIcon = document.querySelector('.windSpeedIcon');
 fiveDaysWeatherSection.style.display = 'none'
+weatherIcon.style.display = 'none';
+humidityIcon.style.display = 'none';
+windSpeedIcon.style.display = 'none'
+
+
 let cityarr = [];
 // options.style.display = 'hidden'
 //Weekdays
@@ -271,6 +277,9 @@ function currentDayWeather(
   humadity_element.innerHTML = `${humadity}%`;
   windspeed_element.innerHTML = `${windSpeed}kmpl`;
   fiveDaysWeatherSection.style.display = "block";
+  weatherIcon.style.display = 'block';
+humidityIcon.style.display = 'block';
+  windSpeedIcon.style.display = 'block';
 }
 // 5 day weather updates
 function daysForecast(
